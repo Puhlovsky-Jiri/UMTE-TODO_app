@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_todo_screen.dart';
 import 'todo_detail_screen.dart';
+import 'settings_screen.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
@@ -19,6 +20,17 @@ class _TodoListScreenState extends State<TodoListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Todo List"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsScreen()),
+              );
+            },
+          )
+        ],
       ),
       body: ListView.builder(
         itemCount: todos.length,
