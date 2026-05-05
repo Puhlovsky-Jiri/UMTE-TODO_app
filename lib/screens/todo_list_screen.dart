@@ -8,6 +8,14 @@ import '../locator.dart';
 import '../services/todo_service.dart';
 
 class TodoListScreen extends StatefulWidget {
+  final Function(bool) toggleTheme;
+  final bool isDarkMode;
+
+  TodoListScreen({
+    required this.toggleTheme,
+    required this.isDarkMode,
+  });
+
   @override
   _TodoListScreenState createState() => _TodoListScreenState();
 }
@@ -43,7 +51,12 @@ class _TodoListScreenState extends State<TodoListScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingsScreen()),
+                MaterialPageRoute(
+                  builder: (context) => SettingsScreen(
+                   toggleTheme: widget.toggleTheme,
+                  isDarkMode: widget.isDarkMode,
+                  ),
+                )
               );
             },
           )

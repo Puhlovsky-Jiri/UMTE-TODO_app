@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
+  final Function(bool) toggleTheme;
+  final bool isDarkMode;
+
+  SettingsScreen({
+    required this.toggleTheme,
+    required this.isDarkMode,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +24,11 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 20),
 
             SwitchListTile(
-              title: Text("Dark mode (fake)"),
-              value: false,
-              onChanged: (value) {},
+              title: Text("Dark mode"),
+              value: isDarkMode,
+              onChanged: (value) {
+                toggleTheme(value);
+              },
             ),
 
             ListTile(
