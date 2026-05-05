@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'add_todo_screen.dart';
+import 'todo_detail_screen.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
@@ -23,12 +25,35 @@ class _TodoListScreenState extends State<TodoListScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(todos[index]),
+            onTap: () async {
+              final updatedTodo = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TodoDetailScreen(todo: todos[index]),
+                ),
+              );
+
+              if (updatedTodo != null) {
+                setState(() {
+                  todos[index] = updatedTodo;
+                });
+              }
+            },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // zatím nic
+        onPressed: () async {
+          final newTodo = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTodoScreen()),
+          );
+
+          if (newTodo != null) {
+            setState(() {
+              todos.add(newTodo);
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
