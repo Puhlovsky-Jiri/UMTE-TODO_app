@@ -4,6 +4,8 @@ import 'todo_detail_screen.dart';
 import 'settings_screen.dart';
 import 'api_todo_screen.dart';
 import 'package:hive/hive.dart';
+import '../locator.dart';
+import '../services/todo_service.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
@@ -13,12 +15,12 @@ class TodoListScreen extends StatefulWidget {
 class _TodoListScreenState extends State<TodoListScreen> {
   late Box box;
   List todos = [];
+  final todoService = getIt<TodoService>();
 
   @override
   void initState() {
     super.initState();
-    box = Hive.box('todos');
-    todos = box.values.toList();
+    todos = todoService.getTodos();
   }
 
   @override
@@ -61,9 +63,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
               );
 
               if (updatedTodo != null) {
-                box.putAt(index, updatedTodo);
+                todoService.updateTodo(index, updatedTodo);
                 setState(() {
-                  todos = box.values.toList();
+                  todos = todoService.getTodos();
                 });
               }
             },
@@ -78,9 +80,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
           );
 
           if (newTodo != null) {
-            box.add(newTodo);
+            todoService.addTodo(newTodo);
             setState(() {
-              todos = box.values.toList();
+              todos = todoService.getTodos();
             });
           }
         },

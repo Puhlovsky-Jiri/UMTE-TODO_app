@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'screens/todo_list_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('todos');
+
+  setupLocator();
 
   runApp(MyApp());
 }
