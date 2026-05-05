@@ -34,7 +34,7 @@ class _ApiTodoScreenState extends State<ApiTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("API TODOs"),
+        title: Text("Návrhy úkolů"),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
@@ -43,6 +43,10 @@ class _ApiTodoScreenState extends State<ApiTodoScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(todos[index]['title']),
+                  trailing: Icon(Icons.add),
+                  onTap: () {
+                    Navigator.pop(context, todos[index]['title']);
+                  },
                 );
               },
             ),

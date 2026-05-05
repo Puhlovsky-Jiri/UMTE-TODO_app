@@ -39,11 +39,21 @@ class _TodoListScreenState extends State<TodoListScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.cloud),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final selectedTodo = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ApiTodoScreen()),
+                MaterialPageRoute(
+                  builder: (context) => ApiTodoScreen(),
+                ),
               );
+
+              if (selectedTodo != null) {
+                todoService.addTodo(selectedTodo);
+
+                setState(() {
+                  todos = todoService.getTodos();
+                });
+              }
             },
           ),
           IconButton(
