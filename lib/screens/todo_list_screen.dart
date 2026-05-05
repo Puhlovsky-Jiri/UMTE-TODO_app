@@ -92,6 +92,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 });
               }
             },
+            onLongPress: () {
+              todoService.deleteTodo(index);
+
+              setState(() {
+                todos = todoService.getTodos();
+              });
+            },
           );
         },
       ),

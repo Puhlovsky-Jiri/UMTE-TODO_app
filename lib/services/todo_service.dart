@@ -14,4 +14,8 @@ class TodoService {
   void updateTodo(int index, String todo) {
     box.putAt(index, todo);
   }
+
+  void deleteTodo(int index) {
+    box.deleteAt(index);
+  } 
 }
